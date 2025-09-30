@@ -3,27 +3,23 @@ import TodoInsert from '../features/todo/components/TodoInsert';
 import TodoList from '../features/todo/components/TodoList';
 import TodoTemplate from '../features/todo/components/TodoTemplate';
 
-const Todo = () => {
-  const [todos, setTodos] = useState([
-    {
-      id: 1,
-      text: '리액트 기초 알아보기',
-      checked: true,
-    },
-    {
-      id: 2,
-      text: '컴포넌트 스타일링해 보기',
-      checked: true,
-    },
-    {
-      id: 3,
-      text: '일정 관리 앱 만들어 보기',
+function createBulkTodos() {
+  const array = [];
+  for (let i = 1; i <= 2500; i++) {
+    array.push({
+      id: i,
+      text: `할 일 ${i}`,
       checked: false,
-    },
-  ]);
+    });
+  }
+  return array;
+}
+
+const Todo = () => {
+  const [todos, setTodos] = useState(createBulkTodos);
 
   // #. UI 렌더링이 필요하지 않은 변수는 useRef 로 생성.
-  const nextId = useRef(4);
+  const nextId = useRef(2501);
   const onInsert = useCallback(
     (text) => {
       const todo = {
@@ -62,3 +58,14 @@ const Todo = () => {
 };
 
 export default Todo;
+
+/**
+ * 컴포넌트 리렌더링
+ * 1. 자신이 받은 props 변경 시
+ * 2. 자신의 state 변경 시
+ * 3. 부모 컴포넌트 리렌더링 시
+ * 4. forceUpdate 함수 실행 시
+ *
+ * 성능 최적화
+ * 1. React.memo : 컴포넌트의 props 가 바뀌지 않으면 리렌더링 하지 않도록 설정하여 성능 최적화.
+ */
