@@ -1,10 +1,10 @@
 import './App.css';
-import Todo from './pages/Todo';
+import User from './pages/User';
 
 function App() {
   return (
     <div>
-      <Todo />
+      <User />
     </div>
   );
 }
