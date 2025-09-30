@@ -18,13 +18,22 @@ const User = () => {
       });*/
 
       // #. immer 라이브러리 사용 불변성 유지하면서 상태 업데이트
-      setForm(
+      /*setForm(
         produce(form, (draft) => {
+          draft[name] = value;
+        }),
+      );*/
+
+      // #. [immer 와 useState 함수형 업데이트 함께 사용] produce 첫번째 파라미터 함수 형태로 호출하여 업데이트 함수 반환 받기
+      setForm(
+        produce((draft) => {
           draft[name] = value;
         }),
       );
     },
-    [form],
+    // #. [form],
+    // #. [immer 와 useState 함수형 업데이트 함께 사용] produce 첫번째 파라미터 함수 형태로 호출하여 업데이트 함수 반환 받기
+    [],
   );
 
   const onSubmit = useCallback(
@@ -57,8 +66,15 @@ const User = () => {
       });*/
 
       // #. immer 라이브러리 사용 불변성 유지하면서 상태 업데이트 (객체 안의 값을 직접 수정하거나 배열을 직접적으로 변화시키는 push, slice 함수 사용 가능)
-      setData(
+      /*setData(
         produce(data, (draft) => {
+          draft.array.push(info);
+        }),
+      );*/
+
+      // #. [immer 와 useState 함수형 업데이트 함께 사용] produce 첫번째 파라미터 함수 형태로 호출하여 업데이트 함수 반환 받기
+      setData(
+        produce((draft) => {
           draft.array.push(info);
         }),
       );
@@ -71,7 +87,9 @@ const User = () => {
       nextId.current += 1;
       usernameRef.current.focus();
     },
-    [data, form.name, form.username],
+    //[data, form.name, form.username],
+    // #. [immer 와 useState 함수형 업데이트 함께 사용] produce 첫번째 파라미터 함수 형태로 호출하여 업데이트 함수 반환 받기
+    [form.name, form.username],
   );
 
   const onRemove = useCallback(
@@ -82,16 +100,25 @@ const User = () => {
       });*/
 
       // #. immer 라이브러리 사용 불변성 유지하면서 상태 업데이트 (객체 안의 값을 직접 수정하거나 배열을 직접적으로 변화시키는 push, slice 함수 사용 가능)
-      setData(
+      /*setData(
         produce(data, (draft) => {
           draft.array.splice(
             draft.array.findIndex((info) => info.id === id),
             1,
           );
         }),
+      );*/
+
+      // #. [immer 와 useState 함수형 업데이트 함께 사용] produce 첫번째 파라미터 함수 형태로 호출하여 업데이트 함수 반환 받기
+      setData(
+        produce((draft) => {
+          draft.array.splice(draft.array.findIndex((info) => info.id === id));
+        }),
       );
     },
-    [data],
+    //[data],
+    // #. [immer 와 useState 함수형 업데이트 함께 사용] produce 첫번째 파라미터 함수 형태로 호출하여 업데이트 함수 반환 받기
+    [],
   );
 
   return (
@@ -133,4 +160,6 @@ export default User;
  *  : 불변성을 유지하면서 상태를 업데이트하는 것을 도움. (불변성을 유지하는 코드가 복잡할 때만 사용해도 충분.)
  *
  * produce(<수정하고 싶은 상태>, <상태를 변경하는 방법 정의 함수>)
+ *
+ * produce(함수) : 첫번째 파라미터가 함수이면 업데이트 함수를 반환한다.
  */
