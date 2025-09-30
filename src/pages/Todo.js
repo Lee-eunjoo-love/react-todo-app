@@ -124,4 +124,7 @@ export default React.memo(Todo);
  * 1. React.memo : 컴포넌트의 props 가 바뀌지 않으면 리렌더링 하지 않도록 설정하여 성능 최적화.
  * 2. useState 의 함수형 업데이트 : useState 업데이트를 함수형 업데이트로 설정하여 onToggle와 onRemove 가 계속 새로워지는 이슈를 해결하여 성능 최적화.
  * 3. useReducer 사용 : useState 함수형 업데이트와 동일하게 onToggle와 onRemove 가 계속 새로워지는 이슈를 해결하여 성능 최적화.
+ *
+ * yarn add react-virtualized
+ *   리스트 컴포넌트에서 스크롤되기 전에 보이지 않는 컴포넌트는 렌더링하지 않고 크기만 차지하도록 하여 성능 최적화.
  */
