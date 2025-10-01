@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom';
-import Header from '../layouts/Header';
 
 const data = [
   { url: '/about', title: '소개' },
@@ -12,7 +11,6 @@ const data = [
 const Home = () => {
   return (
     <div>
-      <Header />
       <div>Home...</div>
       <ul>
         {data.map((item) => (

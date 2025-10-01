@@ -7,7 +7,6 @@ const Article = () => {
     <>
       <div>
         <h2>게시글 {id}</h2>
-        <Link to="/articles">기사 목록</Link>
       </div>
     </>
   );

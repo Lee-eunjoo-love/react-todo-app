@@ -1,5 +1,4 @@
 import { useSearchParams } from 'react-router-dom';
-import Header from '../layouts/Header';
 
 const About = () => {
   // #. useSearchParams : [쿼리파라미터조회객체, 쿼리파라미터업데이트객체]
@@ -20,7 +19,6 @@ const About = () => {
 
   return (
     <div>
-      <Header />
       <h1>About ...</h1>
       <p>detail: {detail}</p>
       <p>mode: {mode}</p>

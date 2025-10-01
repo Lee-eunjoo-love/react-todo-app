@@ -1,5 +1,6 @@
 import './App.css';
 import { Route, Routes } from 'react-router-dom';
+import Layout from './layouts/Layout';
 import About from './pages/About';
 import Home from './pages/Home';
 import User from './pages/User';
@@ -11,12 +12,17 @@ import Articles from './pages/Articles';
 function App() {
   return (
     <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/about" element={<About />} />
-      <Route path="/todo" elelment={<Todo />} />
-      <Route path="/user" element={<User />} />
-      <Route path="/articles" element={<Articles />} />
-      <Route path="/articles/:id" element={<Article />} />
+      {/** [공통 레이아웃 컴포넌트 ] */}
+      <Route element={<Layout />}>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/todo" elelment={<Todo />} />
+        <Route path="/user" element={<User />} />
+      </Route>
+      {/** [중첩된 라우트] */}
+      <Route path="/articles" element={<Articles />}>
+        <Route path=":id" element={<Article />} />
+      </Route>
       <Route path="/profiles/:username" element={<Profile />} />
     </Routes>
   );

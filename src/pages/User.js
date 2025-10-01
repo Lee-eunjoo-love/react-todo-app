@@ -1,6 +1,5 @@
 import React, { useRef, useCallback, useState } from 'react';
 import { produce } from 'immer';
-import Header from '../layouts/Header';
 import { Link } from 'react-router-dom';
 
 const User = () => {
@@ -125,7 +124,6 @@ const User = () => {
 
   return (
     <>
-      <Header />
       <form onSubmit={onSubmit}>
         <input
           name="username"
