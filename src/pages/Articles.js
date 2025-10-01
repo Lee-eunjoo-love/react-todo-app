@@ -7,12 +7,25 @@ const articles = [
   { url: '/articles/3', title: '게시글 3' },
 ];
 
-const Articles = () => {
+const ArticleItem = ({ article }) => {
   const activeStyle = {
     color: 'green',
     fontSize: 21,
   };
 
+  return (
+    <li>
+      <NavLink
+        to={article.url}
+        style={({ isActive }) => (isActive ? activeStyle : undefined)}
+      >
+        {article.title}
+      </NavLink>
+    </li>
+  );
+};
+
+const Articles = () => {
   return (
     <>
       <Header />
@@ -20,14 +33,7 @@ const Articles = () => {
       <Outlet />
       <ul>
         {articles.map((article) => (
-          <li>
-            <NavLink
-              to={article.url}
-              style={({ isActive }) => (isActive ? activeStyle : undefined)}
-            >
-              {article.title}
-            </NavLink>
-          </li>
+          <ArticleItem article={article} />
         ))}
       </ul>
     </>
