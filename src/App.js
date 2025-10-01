@@ -14,7 +14,8 @@ function App() {
     <Routes>
       {/** [공통 레이아웃 컴포넌트 ] */}
       <Route element={<Layout />}>
-        <Route path="/" element={<Home />} />
+        {/** index props 로 path="/" 를 명시적으로 표현 */}
+        <Route index element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/todo" elelment={<Todo />} />
         <Route path="/user" element={<User />} />
