@@ -1,5 +1,7 @@
+import React, { useState } from 'react';
 import { NavLink, Outlet } from 'react-router-dom';
 import Header from '../layouts/Header';
+import axios from 'axios';
 
 const articles = [
   { url: '/articles/1', title: '게시글 1' },
@@ -26,6 +28,19 @@ const ArticleItem = ({ article }) => {
 };
 
 const Articles = () => {
+  const API_KEY = '512f034db2af474daccb80ec945b25af';
+  const [data, setData] = useState(null);
+  const onClick = async () => {
+    try {
+      const response = await axios.get(
+        `https://newsapi.org/v2/top-headlines?country=us&apiKey=${API_KEY}`,
+      );
+      setData(response.data);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   return (
     <>
       <Header />
@@ -36,11 +51,13 @@ const Articles = () => {
           <ArticleItem key={article.url} article={article} />
         ))}
       </ul>
+      <button onClick={onClick}>불러오기</button>
+      {data && <textarea rows={7} value={JSON.stringify(data, null, 2)} />}
     </>
   );
 };
 
-export default Articles;
+export default React.memo(Articles);
 
 /**
  * NavLink 컴포넌트 : 링크에서 사용하는 경로가 '현재 라우트의 경로와 일치하는 경우' 특정 스타일 또는 CSS 클래스를 적용하는 컴포넌트
