@@ -1,0 +1,17 @@
+header {
+  display: flex;
+  font-size: 1.2rem;
+  padding: 1rem;
+  background: white;
+  border-radius: 0.5rem;
+  a {
+    flex: 1;
+    text-decoration: none;
+    color: #666;
+    &:hover {
+      color: cornflowerblue;
+    }
+    align-items: center;
+    text-align: center;
+  }
+}

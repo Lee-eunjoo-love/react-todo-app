@@ -1,5 +1,7 @@
 import React, { useRef, useCallback, useState } from 'react';
 import { produce } from 'immer';
+import Header from '../layouts/Header';
+import { Link } from 'react-router-dom';
 
 const User = () => {
   // #. UI 렌더링이 불필요한 변수는 useRef 로 생성
@@ -123,6 +125,7 @@ const User = () => {
 
   return (
     <>
+      <Header />
       <form onSubmit={onSubmit}>
         <input
           name="username"
@@ -145,6 +148,7 @@ const User = () => {
           {data.array.map((info) => (
             <li key={info.id} onClick={() => onRemove(info.id)}>
               {info.username} ({info.name})
+              <Link to={`/Profiles/${info.username}`}>상세</Link>
             </li>
           ))}
         </ul>
