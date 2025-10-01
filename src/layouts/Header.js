@@ -9,6 +9,7 @@ const Header = () => {
       <Link to="/about">소개</Link>
       <Link to="/user">회원</Link>
       <Link to="/articles">기사</Link>
+      <Link to="/mypage">MyPage</Link>
     </header>
   );
 };

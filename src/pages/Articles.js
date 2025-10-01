@@ -33,7 +33,7 @@ const Articles = () => {
       <Outlet />
       <ul>
         {articles.map((article) => (
-          <ArticleItem article={article} />
+          <ArticleItem key={article.url} article={article} />
         ))}
       </ul>
     </>

@@ -1,5 +1,4 @@
-import { useParams, Link } from 'react-router-dom';
-import Header from '../layouts/Header';
+import { useParams } from 'react-router-dom';
 
 const Article = () => {
   const { id } = useParams();

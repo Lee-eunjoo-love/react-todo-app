@@ -14,7 +14,7 @@ const Home = () => {
       <div>Home...</div>
       <ul>
         {data.map((item) => (
-          <li>
+          <li key={item.url}>
             <Link to={item.url}>{item.title}</Link>
           </li>
         ))}
