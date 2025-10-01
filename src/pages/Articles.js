@@ -1,4 +1,4 @@
-import { Link, Outlet } from 'react-router-dom';
+import { NavLink, Outlet } from 'react-router-dom';
 import Header from '../layouts/Header';
 
 const articles = [
@@ -8,6 +8,11 @@ const articles = [
 ];
 
 const Articles = () => {
+  const activeStyle = {
+    color: 'green',
+    fontSize: 21,
+  };
+
   return (
     <>
       <Header />
@@ -16,7 +21,12 @@ const Articles = () => {
       <ul>
         {articles.map((article) => (
           <li>
-            <Link to={article.url}>{article.title}</Link>
+            <NavLink
+              to={article.url}
+              style={({ isActive }) => (isActive ? activeStyle : undefined)}
+            >
+              {article.title}
+            </NavLink>
           </li>
         ))}
       </ul>
@@ -25,3 +35,7 @@ const Articles = () => {
 };
 
 export default Articles;
+
+/**
+ * NavLink 컴포넌트 : 링크에서 사용하는 경로가 '현재 라우트의 경로와 일치하는 경우' 특정 스타일 또는 CSS 클래스를 적용하는 컴포넌트
+ */
