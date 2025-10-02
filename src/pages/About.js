@@ -1,4 +1,9 @@
 import { useSearchParams } from 'react-router-dom';
+import ColorBox from '../features/about/components/ColorBox';
+import ColorContext from '../contexts/color';
+import { DynamicColorProvider } from '../contexts/dynamicColor';
+import DynamicColorBox from '../features/about/components/DynamicColorBox';
+import SelectColors from '../features/about/components/SelectColors';
 
 const About = () => {
   // #. useSearchParams : [쿼리파라미터조회객체, 쿼리파라미터업데이트객체]
@@ -8,7 +13,11 @@ const About = () => {
 
   const onToggleDetail = () => {
     // #. 쿼리파라미터 값은 문자열이므로 boolean 은 'true' 나 'false' 같은 문자열로 비교
-    setSearchParams({ mode, detail: detail === 'true' ? false : true });
+    const currentMode = mode === null ? 0 : parseInt(mode);
+    setSearchParams({
+      mode: currentMode,
+      detail: detail === 'true' ? false : true,
+    });
   };
 
   const onIncreaseMode = () => {
@@ -24,6 +33,19 @@ const About = () => {
       <p>mode: {mode}</p>
       <button onClick={onToggleDetail}>Toggle detail</button>
       <button onClick={onIncreaseMode}>mode + 1</button>
+      {/** #. Context 의 Provider 를 사용하여 value 변경 가능.
+       * (Provider 를 사용하면 기본값을 사용하지 않으므로 Provider 에서 value를 명시하지 않으면 오류 발생)
+       * */}
+      <ColorContext.Provider value={{ color: 'green' }}>
+        <ColorBox />
+      </ColorContext.Provider>
+      <DynamicColorProvider>
+        <DynamicColorBox />
+      </DynamicColorProvider>
+      <DynamicColorProvider>
+        <SelectColors />
+        <DynamicColorBox />
+      </DynamicColorProvider>
     </div>
   );
 };
