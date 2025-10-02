@@ -11,6 +11,7 @@ import Articles from './pages/Articles';
 import NotFound from './pages/NotFound';
 import MyPage from './pages/MyPage';
 import Login from './pages/Login';
+import News from './pages/News';
 
 function App() {
   return (
@@ -23,6 +24,8 @@ function App() {
         <Route path="/todo" elelment={<Todo />} />
         <Route path="/user" element={<User />} />
         <Route path="/mypage" element={<MyPage />} />
+        <Route path="/news" element={<News />} />
+        <Route path="/news/:category" element={<News />} />
       </Route>
       {/** [중첩된 라우트] */}
       <Route path="/articles" element={<Articles />}>

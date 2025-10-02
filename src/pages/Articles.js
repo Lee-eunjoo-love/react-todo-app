@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { NavLink, Outlet } from 'react-router-dom';
 import Header from '../layouts/Header';
-import axios from 'axios';
 
 const articles = [
   { url: '/articles/1', title: '게시글 1' },
@@ -28,18 +27,7 @@ const ArticleItem = ({ article }) => {
 };
 
 const Articles = () => {
-  const API_KEY = '512f034db2af474daccb80ec945b25af';
   const [data, setData] = useState(null);
-  const onClick = async () => {
-    try {
-      const response = await axios.get(
-        `https://newsapi.org/v2/top-headlines?country=us&apiKey=${API_KEY}`,
-      );
-      setData(response.data);
-    } catch (e) {
-      console.log(e);
-    }
-  };
 
   return (
     <>
@@ -51,7 +39,6 @@ const Articles = () => {
           <ArticleItem key={article.url} article={article} />
         ))}
       </ul>
-      <button onClick={onClick}>불러오기</button>
       {data && <textarea rows={7} value={JSON.stringify(data, null, 2)} />}
     </>
   );
