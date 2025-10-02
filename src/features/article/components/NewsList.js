@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import NewsItem from './NewsItem';
 import axios from 'axios';
+import usePromise from '../../../lib/usePromise';
 
 const NewsListBlock = styled.div`
   box-sizing: border-box;
@@ -25,7 +26,7 @@ const sampleArticle = {
 
 const NewsList = ({ category }) => {
   const API_KEY = '512f034db2af474daccb80ec945b25af';
-  const [articles, setArticles] = useState(null);
+  /*const [articles, setArticles] = useState(null);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -45,12 +46,34 @@ const NewsList = ({ category }) => {
       }
     };
     fetchData();
+  }, [category]);*/
+
+  // #. usePromise 커스텀 Hook
+  // #. Promise 의 대기중, 완료결과, 실패결과 상태관리를 하는 커스텀 Hook
+  const [loading, response, error] = usePromise(() => {
+    const query = category === 'all' ? '' : `&category=${category}`;
+    return axios.get(
+      `https://newsapi.org/v2/top-headlines?country=us${query}&apiKey=${API_KEY}`,
+    );
   }, [category]);
 
   // #. API 요청 대기중이면
   if (loading) {
     return <NewsListBlock>로딩 중 ...</NewsListBlock>;
   }
+
+  // #. usePromise 커스텀 Hook
+  if (!response) {
+    return <NewsListBlock>응답 결과가 없습니다.</NewsListBlock>;
+  }
+
+  // #. usePromise 커스텀 Hook
+  if (error) {
+    return <NewsListBlock>예기치 않은 오류가 발생하였습니다.</NewsListBlock>;
+  }
+
+  // #. usePromise 커스텀 Hook
+  const { articles } = response.data;
 
   // #. API 요청 결과가 null 이면
   if (!articles) {
@@ -62,7 +85,7 @@ const NewsList = ({ category }) => {
     <>
       <NewsListBlock>
         {articles.map((article) => (
-          <NewsItem article={article} />
+          <NewsItem key={article.url} article={article} />
         ))}
       </NewsListBlock>
     </>
