@@ -39,6 +39,7 @@ const About = () => {
       <ColorContext.Provider value={{ color: 'green' }}>
         <ColorBox />
       </ColorContext.Provider>
+      <h5>동적 Context 사용하기 그리고 useContext Hook 사용하기</h5>
       <DynamicColorProvider>
         <DynamicColorBox />
       </DynamicColorProvider>
