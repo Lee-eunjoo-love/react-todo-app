@@ -4,11 +4,19 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
+import { createStore } from 'redux';
+import rootReducer from './modules/index';
+import { Provider } from 'react-redux';
+
+// #. 리덕스 전역 상태 관리 스토어 생성
+const store = createStore(rootReducer);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <BrowserRouter>
-    <App />
+    <Provider store={store}>
+      <App />
+    </Provider>
   </BrowserRouter>,
   {
     /**
@@ -32,5 +40,7 @@ reportWebVitals();
  * SPA : 하나의 페이지로 이루어진 애플리케이션.
  *  ㄴ 한번만 HTML 을 받아와서 웹 애플리케이션을 실행시킨 후 이후에는 필요한 데이터만 받아와 화면을 업데이트.
  *
- *
+ * 리덕스 전역 상태 관리
+ *  1. 스토어 생성
+ *  2. Provider 컴포넌트를 사용하여 App 컴포넌트를 감싸 스토어 사용 가능하도록 설정
  */
