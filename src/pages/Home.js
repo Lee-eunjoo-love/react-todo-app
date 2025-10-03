@@ -1,7 +1,8 @@
 import { Link } from 'react-router-dom';
 import Counter from '../features/home/components/Counter';
 import { connect } from 'react-redux';
-import { increase, decrease } from '../modules/Home/counter';
+import { increase, decrease } from '../modules/home/counter';
+import { bindActionCreators } from 'redux';
 
 const data = [
   { url: '/about', title: '소개' },
@@ -30,6 +31,7 @@ const Home = ({ number, increase, decrease }) => {
   );
 };
 
+/** [방법1] mapStateToProps 함수와 mapDispatchToProps 함수를 connect 함수의 인자로 넘겨 리덕스와 연동된 컴포넌트 생성
 // #. 현재 스토어가 지니고 있는 상태
 const mapStateProps = (state) => ({
   number: state.counter.number,
@@ -45,4 +47,44 @@ const mapDispatchToProps = (dispatch) => ({
   },
 });
 
-export default connect(mapStateProps, mapDispatchToProps)(Home);
+// #. 리덕스와 연결된 컴포넌트 생성
+export default connect(mapStateProps, mapDispatchToProps)(Home);*/
+
+/** [방법2] connect 함수의 인자를 익명함수 형태로 넘겨 리덕스와 연동된 컴포넌트 생성 
+// #. 리덕스와 연결된 컴포넌트 생성
+export default connect(
+  (state) => ({
+    number: state.counter.number,
+  }),
+  (dispatch) => ({
+    increase: () => dispatch(increase()),
+    decrease: () => dispatch(decrease()),
+  }),
+)(Home);*/
+
+/** [방법3] connect 함수의 두번째 인자를 리덕스에서 제공하는 bindActionCreators 유틸 함수를 사용하여 리덕스와 연동된 컴포넌트 생성 
+// #. 리덕스와 연결된 컴포넌트 생성
+export default connect(
+  (state) => ({
+    number: state.counter.number,
+  }),
+  (dispatch) =>
+    bindActionCreators(
+      {
+        increase,
+        decrease,
+      },
+      dispatch,
+    ),
+)(Home);*/
+
+/** [방법4] connect 함수의 두번째 인자를 액션 생성 함수로 이루어진 객체 형태로 넣어주면 connect 함수가 내부적으로 bindActionCreators 작업을 대신해줌 */
+export default connect(
+  (state) => ({
+    number: state.counter.number,
+  }),
+  {
+    increase,
+    decrease,
+  },
+)(Home);
